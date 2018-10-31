@@ -30,6 +30,7 @@ BINARIES := \
 CONTAINER_BINARIES := \
     dnsmasq-nanny \
     kube-dns \
+    coredns-dnscache \
     sidecar
 
 # List of images to build (contained in images/)
