@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["options.go"],
+    importpath = "k8s.io/dns/cmd/kube-dns/app/options",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/dns/federation:go_default_library",
+        "//vendor/github.com/spf13/pflag:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/util/validation:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/api:go_default_library",
+    ],
+)

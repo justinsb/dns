@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "k8s.io/dns/cmd/node-cache",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//vendor/github.com/coredns/coredns/coremain:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/bind:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/cache:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/errors:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/forward:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/health:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/log:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/loop:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/metrics:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/pkg/log:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/reload:go_default_library",
+        "//vendor/github.com/mholt/caddy:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/dbus:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/exec:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/iptables:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "node-cache",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)

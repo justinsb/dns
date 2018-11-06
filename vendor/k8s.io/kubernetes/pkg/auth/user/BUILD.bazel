@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "doc.go",
+        "user.go",
+    ],
+    importmap = "k8s.io/dns/vendor/k8s.io/kubernetes/pkg/auth/user",
+    importpath = "k8s.io/kubernetes/pkg/auth/user",
+    visibility = ["//visibility:public"],
+)

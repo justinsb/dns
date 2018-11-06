@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "backend.go",
+        "backend_lookup.go",
+        "normalize.go",
+        "plugin.go",
+    ],
+    importmap = "k8s.io/dns/vendor/github.com/coredns/coredns/plugin",
+    importpath = "github.com/coredns/coredns/plugin",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/coredns/coredns/plugin/etcd/msg:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/pkg/dnsutil:go_default_library",
+        "//vendor/github.com/coredns/coredns/plugin/pkg/parse:go_default_library",
+        "//vendor/github.com/coredns/coredns/request:go_default_library",
+        "//vendor/github.com/miekg/dns:go_default_library",
+        "//vendor/github.com/opentracing/opentracing-go:go_default_library",
+        "//vendor/github.com/prometheus/client_golang/prometheus:go_default_library",
+    ],
+)

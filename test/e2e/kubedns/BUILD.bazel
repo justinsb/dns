@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["kubedns.go"],
+    importpath = "k8s.io/dns/test/e2e/kubedns",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/e2e:go_default_library",
+        "//pkg/e2e/dns:go_default_library",
+        "//vendor/github.com/miekg/dns:go_default_library",
+        "//vendor/github.com/onsi/ginkgo:go_default_library",
+        "//vendor/github.com/onsi/gomega:go_default_library",
+    ],
+)

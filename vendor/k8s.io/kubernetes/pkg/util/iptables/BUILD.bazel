@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "doc.go",
+        "iptables.go",
+        "save_restore.go",
+    ],
+    importmap = "k8s.io/dns/vendor/k8s.io/kubernetes/pkg/util/iptables",
+    importpath = "k8s.io/kubernetes/pkg/util/iptables",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/coreos/go-semver/semver:go_default_library",
+        "//vendor/github.com/godbus/dbus:go_default_library",
+        "//vendor/github.com/golang/glog:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/dbus:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/exec:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/sets:go_default_library",
+    ],
+)

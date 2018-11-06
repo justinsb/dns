@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["dns.go"],
+    importpath = "k8s.io/dns/cmd/kube-dns",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//cmd/kube-dns/app:go_default_library",
+        "//cmd/kube-dns/app/options:go_default_library",
+        "//pkg/version:go_default_library",
+        "//vendor/github.com/golang/glog:go_default_library",
+        "//vendor/github.com/spf13/pflag:go_default_library",
+        "//vendor/k8s.io/apiserver/pkg/util/flag:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/client/metrics/prometheus:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/util/logs:go_default_library",
+        "//vendor/k8s.io/kubernetes/pkg/version/prometheus:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "kube-dns",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)

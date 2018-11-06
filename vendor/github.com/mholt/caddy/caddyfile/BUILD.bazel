@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "dispenser.go",
+        "json.go",
+        "lexer.go",
+        "parse.go",
+    ],
+    importmap = "k8s.io/dns/vendor/github.com/mholt/caddy/caddyfile",
+    importpath = "github.com/mholt/caddy/caddyfile",
+    visibility = ["//visibility:public"],
+    deps = ["//vendor/github.com/mholt/caddy/telemetry:go_default_library"],
+)

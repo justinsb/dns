@@ -1,0 +1,50 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "dns.go",
+        "doc.go",
+    ],
+    importpath = "k8s.io/dns/pkg/dns",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/dns/config:go_default_library",
+        "//pkg/dns/treecache:go_default_library",
+        "//pkg/dns/util:go_default_library",
+        "//vendor/github.com/coreos/etcd/client:go_default_library",
+        "//vendor/github.com/golang/glog:go_default_library",
+        "//vendor/github.com/miekg/dns:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/msg:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/server:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/fields:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/util/validation:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/util/wait:go_default_library",
+        "//vendor/k8s.io/client-go/kubernetes:go_default_library",
+        "//vendor/k8s.io/client-go/pkg/api/v1:go_default_library",
+        "//vendor/k8s.io/client-go/tools/cache:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["dns_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "//pkg/dns/config:go_default_library",
+        "//pkg/dns/treecache:go_default_library",
+        "//pkg/dns/util:go_default_library",
+        "//vendor/github.com/coreos/etcd/client:go_default_library",
+        "//vendor/github.com/miekg/dns:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/msg:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/server:go_default_library",
+        "//vendor/github.com/stretchr/testify/assert:go_default_library",
+        "//vendor/github.com/stretchr/testify/require:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/util/sets:go_default_library",
+        "//vendor/k8s.io/client-go/kubernetes/fake:go_default_library",
+        "//vendor/k8s.io/client-go/pkg/api/v1:go_default_library",
+        "//vendor/k8s.io/client-go/tools/cache:go_default_library",
+    ],
+)

@@ -1,0 +1,30 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "backend.go",
+        "config.go",
+        "dnssec.go",
+        "doc.go",
+        "exchange.go",
+        "forwarding.go",
+        "log.go",
+        "msg.go",
+        "nsec3.go",
+        "server.go",
+        "stub.go",
+    ],
+    importmap = "k8s.io/dns/vendor/github.com/skynetservices/skydns/server",
+    importpath = "github.com/skynetservices/skydns/server",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/coreos/etcd/client:go_default_library",
+        "//vendor/github.com/coreos/go-systemd/activation:go_default_library",
+        "//vendor/github.com/miekg/dns:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/cache:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/metrics:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/msg:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/singleflight:go_default_library",
+    ],
+)

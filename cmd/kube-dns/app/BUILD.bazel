@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["server.go"],
+    importpath = "k8s.io/dns/cmd/kube-dns/app",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//cmd/kube-dns/app/options:go_default_library",
+        "//pkg/dns:go_default_library",
+        "//pkg/dns/config:go_default_library",
+        "//pkg/version:go_default_library",
+        "//vendor/github.com/golang/glog:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/metrics:go_default_library",
+        "//vendor/github.com/skynetservices/skydns/server:go_default_library",
+        "//vendor/github.com/spf13/pflag:go_default_library",
+        "//vendor/k8s.io/client-go/kubernetes:go_default_library",
+        "//vendor/k8s.io/client-go/rest:go_default_library",
+        "//vendor/k8s.io/client-go/tools/clientcmd:go_default_library",
+    ],
+)

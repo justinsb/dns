@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["doc.go"],
+    importpath = "k8s.io/dns/test/e2e",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["e2e_test.go"],
+    embed = [":go_default_library"],
+    deps = [
+        "//cmd/ginkgo/config:go_default_library",
+        "//pkg/e2e:go_default_library",
+        "//test/e2e/dnsmasq:go_default_library",
+        "//test/e2e/kubedns:go_default_library",
+        "//vendor/github.com/onsi/ginkgo:go_default_library",
+        "//vendor/github.com/onsi/gomega:go_default_library",
+    ],
+)
