@@ -1,0 +1,8 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:proto disable_global
+# gazelle:prefix k8s.io/dns
+gazelle(
+    name = "gazelle",
+    external = "vendored",
+)
