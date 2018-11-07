@@ -1,0 +1,61 @@
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_image",
+    "container_push",
+)
+load("@package_bundle//file:packages.bzl", "packages")
+
+container_image(
+    name = "image",
+    base = "@cc_base//image",
+    debs = [
+        # busybox
+        packages["busybox-static"],
+
+        # iptables and supporting packages
+        packages["iptables"],
+        packages["libip4tc0"],
+        packages["libip6tc0"],
+        packages["libiptc0"],
+        packages["libnetfilter-conntrack3"],
+        packages["libnfnetlink0"],
+        packages["libxtables12"],
+    ],
+    files = [
+        "start.sh",
+        "//cmd/node-cache:node-cache",
+    ],
+    symlinks = {
+        "/bin/sh": "/bin/busybox",
+        "/bin/mkdir": "/bin/busybox",
+        "/bin/grep": "/bin/busybox",
+        "/bin/cat": "/bin/busybox",
+        "/bin/sed": "/bin/busybox",
+        "/bin/ip": "/bin/busybox",
+    },
+    entrypoint = "/start.sh",
+)
+
+container_push(
+    name = "push-image",
+    format = "Docker",
+    image = ":image",
+    registry = "{STABLE_DOCKER_REGISTRY}",
+    repository = "{STABLE_DOCKER_IMAGE_PREFIX}dns-node-cache",
+    stamp = True,
+    tag = "{STABLE_DOCKER_TAG}",
+)
+
+load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
+
+k8s_object(
+    name = "dev",
+
+    # A template of a Kubernetes Deployment object yaml.
+    template = ":manifest.yaml",
+    cluster = "{STABLE_K8S_CLUSTER}",
+    images = {
+        "k8s.gcr.io/dns-node-cache:latest": ":image",
+    },
+    image_chroot = "{STABLE_DOCKER_REGISTRY}/{STABLE_DOCKER_IMAGE_PREFIX}",
+)
