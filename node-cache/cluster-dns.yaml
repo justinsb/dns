@@ -1,0 +1,19 @@
+# This service is used to expose the kube-dns pods, for use on cache-misses.
+# TODO: We could maybe get away without this, if we only intercepted UDP?
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-dns
+  namespace: kube-system
+spec:
+  ports:
+  - name: dns
+    port: 53
+    protocol: UDP
+    targetPort: 53
+  - name: dns-tcp
+    port: 53
+    protocol: TCP
+    targetPort: 53
+  selector:
+    k8s-app: kube-dns
